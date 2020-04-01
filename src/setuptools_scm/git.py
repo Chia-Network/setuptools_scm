@@ -29,6 +29,9 @@ class GitWorkdir(object):
         real_wd, _, ret = do_ex("git rev-parse --show-toplevel", wd)
         if ret:
             return
+        real_wd, _, ret = do_ex("cygpath -w {}".format(real_wd), wd)
+        if ret:
+            return
         trace("real root", real_wd)
         if not samefile(real_wd, wd):
             return

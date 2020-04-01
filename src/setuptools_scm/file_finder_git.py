@@ -17,6 +17,15 @@ def _git_toplevel(path):
                 universal_newlines=True,
                 stderr=devnull,
             )
+
+
+            out = subprocess.check_output(
+                ["cygpath", "-w", out],
+                cwd=(path or "."),
+                universal_newlines=True,
+                stderr=devnull,
+            )
+
         trace("find files toplevel", out)
         return os.path.normcase(os.path.realpath(out.strip()))
     except subprocess.CalledProcessError:
